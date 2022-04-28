@@ -4,19 +4,24 @@ import '../styles/tasklist.scss'
 
 import { FiTrash, FiCheckSquare } from 'react-icons/fi'
 
+
 interface Task {
   id: number;
   title: string;
   isComplete: boolean;
 }
 
+
 export function TaskList() {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [newTaskTitle, setNewTaskTitle] = useState('');
 
+  const date = new Date()
+  date?.getMilliseconds?.()
+
   function handleCreateNewTask() {
     // Crie uma nova task com um id random, não permita criar caso o título seja vazio.
-    {newTaskTitle &&(
+    {newTaskTitle ?(
       setTasks([
         ...tasks,
         {
@@ -27,14 +32,16 @@ export function TaskList() {
       ]),
       setNewTaskTitle('')
       
-    );
+    ): (
+      alert("Não é possivel criar uma nova task sem nome!!!!")
+    )
   }
           
   }
 
   function handleToggleTaskCompletion(id: number) {
     // Altere entre `true` ou `false` o campo `isComplete` de uma task com dado ID
-    setTasks(tasks.map(Task => Task.id === id ? {...Task, isComplete: !Task.isComplete} : {...Task}))
+    setTasks(tasks.map(task => task.id === id ? {...task, isComplete: !task.isComplete} : {...task}))
   }
 
   function handleRemoveTask(id: number) {
@@ -75,6 +82,7 @@ export function TaskList() {
                   <span className="checkmark"></span>
                 </label>
                 <p>{task.title}</p>
+                <p>{task.id}</p>
               </div>
 
               <button type="button" data-testid="remove-task-button" onClick={() => handleRemoveTask(task.id)}>
