@@ -7,6 +7,11 @@ import { useEffect, useMemo, useState } from 'react';
 
 
 export function App() {
+  const wiii = 'aaaaaaaaaa' 
+  useEffect(()=>{
+    console.log('label', wiii)
+  },[wiii])
+
   return (
     <>
       <Header/>
